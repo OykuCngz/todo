@@ -1,0 +1,16 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./node_modules/node-red/red.js -u .",
+    "start:1881": "node -e \"process.env.PORT=1881;require('./node_modules/node-red/red.js')\" -u .",
+    "dev": "node ./node_modules/node-red/red.js -u . -v"
+  },
+  "devDependencies": {
+    "node-red": "^4.1.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  }
+}

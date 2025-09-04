@@ -1,0 +1,18 @@
+# bağımlılıklar
+node_modules/
+# derlenmiş/kopyalanmış assetler
+public/vendor/bootstrap/*
+
+# Node-RED gizli/state dosyaları
+flows_cred.json
+*.backup
+.config.*.json
+
+# log/çöp
+npm-debug.log*
+*.log
+
+# IDE/OS
+.vscode/
+.DS_Store
+Thumbs.db
