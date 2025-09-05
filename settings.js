@@ -5,35 +5,33 @@ module.exports = {
   uiPort: process.env.PORT || 1880,
   flowFile: "flows.json",
 
-  // Statik dosyalar (public klasörü)
   httpStatic: path.join(__dirname, "public"),
-
-  // >>> Editör (admin UI) artık /admin altında açılacak
   httpAdminRoot: "/admin",
-
-  // >>> HTTP In düğümleri (REST API) kök yolu
-  // Uçların değişmemesi için "/" bırakıyorum ( /todos aynen çalışır )
-  // İstersen "/api" yapıp tüm uçları /api/todos şeklinde toplayabilirsin.
   httpNodeRoot: "/",
 
-  // Videodaki gibi projeleri kapatalım
   editorTheme: { projects: { enabled: false } },
 
-  // Bu uyarıyı kaldırmak istersen (opsiyonel): güçlü bir gizli anahtar ver
-  // credentialSecret: "buraya-uzun-rastgele-bir-gizli-anahtar-yaz",
+  // güçlü bir anahtar vermek istersen:
+  // credentialSecret: "uzun-rastgele-bir-anahtar",
 
-  // Fonksiyon düğümlerinde ObjectId kullanmak için
+  // >>> BURAYI GÜNCELLEYİN
   functionGlobalContext: {
-    ObjectId: (() => { try { return require("mongodb").ObjectId; } catch { return null; } })()
-  },
+    ObjectId: (() => { try { return require("mongodb").ObjectId; } catch { return null; } })(),
 
-  // (Opsiyonel) Admin panele şifre koymak için aç:
-  // adminAuth: {
-  //   type: "credentials",
-  //   users: [{
-  //     username: "admin",
-  //     password: "<hash'i buraya yapıştır>", // node-red-admin hash-pw ile üret
-  //     permissions: "*"
-  //   }]
-  // },
+    // Kullanacağımız lib'ler (hata olsa Node-RED çökmesin diye try/catch'li)
+    bcrypt: (() => { try { return require("bcryptjs"); } catch { return null; } })(),
+    jwt:    (() => { try { return require("jsonwebtoken"); } catch { return null; } })(),
+    uuid:   (() => { try { return require("uuid"); } catch { return null; } })(),
+  },
+  // dış modül kullanımı
+functionExternalModules: true,
+
+functionGlobalContext: {
+  bcrypt: require("bcryptjs"),
+  jwt: require("jsonwebtoken"),
+  uuidv4: require("uuid").v4
+}
+
+
+  // adminAuth ... (opsiyonel)
 };
